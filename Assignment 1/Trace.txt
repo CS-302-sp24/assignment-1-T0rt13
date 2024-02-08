@@ -1,0 +1,111 @@
+#1
+I entered the following in the command prompt: 
+java DiningPhilosophers 2 0 1 0 0
+
+This was the output:
+Philosopher 0 thinks for 0 milliseconds.
+Philosopher 1 thinks for 0 milliseconds.
+Philosopher 0 wants right chopstick.
+Philosopher 1 wants right chopstick.
+Philosopher 0 has right chopstick.
+Philosopher 1 has right chopstick.
+Philosopher 0 wants left chopstick.
+Philosopher 1 wants left chopstick.
+
+This shows a deadlock where Philosopher 0 and Philosopher 1 are both right handed and they are both waiting for the other to put down the left chopstick. The reason they both think for 0 milliseconds is because random.nextInt(maxThinkTime) will be greater than or equal to 0 and less than the entered parameter for tt, which was 1. I also set tt and et to 1000 when they are equal to 0 to avoid getting an error because random.nextInt() cannot be greater than or equal to zero but also less than zero at the same time.
+
+-------------------------------------------------------------------------
+
+#2
+I entered the following in the command prompt: 
+java DiningPhilosophers 2 0 1 0 1
+
+This was the output:
+Philosopher 0 thinks for 0 milliseconds.
+Philosopher 1 thinks for 0 milliseconds.
+Philosopher 1 wants left chopstick.
+Philosopher 0 wants right chopstick.
+Philosopher 1 has left chopstick.
+Philosopher 1 wants right chopstick.
+Philosopher 1 has right chopstick.
+Philosopher 1 eats for 784 milliseconds
+Philosopher 1 releases right chopstick.
+Philosopher 1 releases left chopstick.
+Philosopher 1 thinks for 0 milliseconds.
+Philosopher 1 wants left chopstick.
+Philosopher 0 has right chopstick.
+Philosopher 0 wants left chopstick.
+Philosopher 0 has left chopstick.
+Philosopher 0 eats for 848 milliseconds
+Philosopher 0 releases left chopstick.
+Philosopher 1 has left chopstick.
+Philosopher 0 releases right chopstick.
+Philosopher 1 wants right chopstick.
+Philosopher 1 has right chopstick.
+Philosopher 0 thinks for 0 milliseconds.
+Philosopher 0 wants right chopstick.
+Philosopher 1 eats for 883 milliseconds
+Philosopher 1 releases right chopstick.
+Philosopher 1 releases left chopstick.
+...
+
+The output kept on going. However, this shows a deadlock is avoided compared to the first time it was run. By alternating left and right handed philosophers, There is no more circular wait that happens. It avoids the deadlock problem by forcing some philosphers to wait while they have no chopsticks in their hands.
+
+-------------------------------------------------------------
+
+#3
+I entered the following in the command prompt: 
+java DiningPhilosophers 5 100 148 8 0
+
+This was the output:
+Philosopher 3 thinks for 114 milliseconds.
+Philosopher 4 thinks for 138 milliseconds.
+Philosopher 2 thinks for 140 milliseconds.
+Philosopher 1 thinks for 121 milliseconds.
+Philosopher 0 thinks for 126 milliseconds.
+Philosopher 0 wants right chopstick.
+Philosopher 1 wants right chopstick.
+Philosopher 2 wants right chopstick.
+Philosopher 4 wants right chopstick.
+Philosopher 3 wants right chopstick.
+Philosopher 1 has right chopstick.
+Philosopher 4 has right chopstick.
+Philosopher 0 has right chopstick.
+Philosopher 2 has right chopstick.
+Philosopher 3 has right chopstick.
+Philosopher 2 wants left chopstick.
+Philosopher 1 wants left chopstick.
+Philosopher 0 wants left chopstick.
+Philosopher 4 wants left chopstick.
+Philosopher 3 wants left chopstick.
+
+Here there are 5 philosophers. The higher of a number that tt is, the less of a chance there is of a deadlock because it increases the range of time that can be selected by the random number generator. In other words, it allows the time spent thinking to be more random, so the chance of them all getting done thinking at the same time is smaller. This case was uncommon because all the the philosophers chose to spend between 114 and 140 seconds thinking. That much of a difference was enough to cause a deadlock. I ran that same set of parameters a few more times. Each pf those times, it finished running all of the cycles that I entered for nc.
+
+-----------------------------------------------------------------
+#4
+I entered the following in the command prompt: 
+java DiningPhilosophers 5 100 108 28 0
+
+This was the output:
+Philosopher 0 thinks for 37 milliseconds.
+Philosopher 2 thinks for 67 milliseconds.
+Philosopher 4 thinks for 62 milliseconds.
+Philosopher 3 thinks for 57 milliseconds.
+Philosopher 4 wants right chopstick.
+Philosopher 0 wants right chopstick.
+Philosopher 1 thinks for 74 milliseconds.
+Philosopher 3 wants right chopstick.
+Philosopher 2 wants right chopstick.
+Philosopher 0 has right chopstick.
+Philosopher 3 has right chopstick.
+Philosopher 4 has right chopstick.
+Philosopher 1 wants right chopstick.
+Philosopher 0 wants left chopstick.
+Philosopher 2 has right chopstick.
+Philosopher 3 wants left chopstick.
+Philosopher 1 has right chopstick.
+Philosopher 2 wants left chopstick.
+Philosopher 4 wants left chopstick.
+Philosopher 1 wants left chopstick.
+
+This one was another deadlock. It was interesting how some of them finished thinking and decided they wanted the chopsticks before the amount of time spent thinking was printed for philosopher 1. Philosopher 0 also managed to print that they wanted the left chopstick before philosopher 1 and philosopher 2 picked up the right chopsticks. I think the deadlock happened this time because the difference between 37 and 74 milliseconds is not much. They all decided that they were hungry at around the same time.
